@@ -9,6 +9,8 @@
   <a href="lotto://lotto.pl/lotto/wyniki" id="targetLink">Check Accessibility</a><br><br><br><br><br><br>
   <a href="lotto://lotto.pl/lotto/wyniki">Open</a>
 
+  <div id="target">Force open</div>
+
   <script>
     async function checkURLAccessibility(url) {
       try {
@@ -32,6 +34,12 @@
 
       const linkHref = targetLink.getAttribute('href');
       await checkURLAccessibility(linkHref);
+    });
+
+    const target = document.getElementById('target');
+    target.addEventListener('click', async event => {
+        setTimeout(() => window.location.href = 'https://www.lotto.pl/aplikacja-lotto?plc=stopka', 500);
+        window.location.href = 'lotto://lotto.pl/lotto/wyniki';
     });
   </script>
 </body>
