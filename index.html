@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Accessibility Checker</title>
+</head>
+<body>
+  <a href="lotto://lotto.pl/lotto/wyniki" id="targetLink">Check Accessibility</a><br><br><br><br><br><br>
+  <a href="lotto://lotto.pl/lotto/wyniki">Open</a>
+
+  <script>
+    async function checkURLAccessibility(url) {
+      try {
+        const response = await fetch(url);
+        if (response.ok) {
+          console.log('__URL is accessible');
+          alert('__URL is accessible');
+        } else {
+          console.log('__URL is not accessible');
+          alert('__URL is not accessible');
+        }
+      } catch (error) {
+        console.error('__An error occurred:', error);
+        alert('__An error occurred:', error);
+      }
+    }
+
+    const targetLink = document.getElementById('targetLink');
+    targetLink.addEventListener('click', async event => {
+      event.preventDefault(); // Prevent the link from navigating
+
+      const linkHref = targetLink.getAttribute('href');
+      await checkURLAccessibility(linkHref);
+    });
+  </script>
+</body>
+</html>
