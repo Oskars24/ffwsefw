@@ -8,7 +8,9 @@
 <body>
   <a href="lotto://lotto.pl/lotto/wyniki" id="targetLink">Check Accessibility</a><br><br><br><br><br><br>
   <a href="lotto://lotto.pl/lotto/wyniki">Open</a><br><br><br><br><br><br>
-  <div id="target">Force open</div>
+  <div id="target">Force open</div><br><br><br><br><br><br>
+  <button id="checkAppsButton">Check Installed Apps</button>
+  <div id="target2"></div>
 
   <script>
     async function checkURLAccessibility(url) {
@@ -40,6 +42,30 @@
         setTimeout(() => window.location.href = 'https://www.lotto.pl/aplikacja-lotto?plc=stopka', 500);
         window.location.href = 'lotto://lotto.pl/lotto/wyniki';
     });
+
+    async function checkInstalledApps() {
+      const targetDiv = document.getElementById('target2');
+
+      if ('getInstalledRelatedApps' in navigator) {
+        try {
+          const relatedApps = await navigator.getInstalledRelatedApps();
+
+          if (relatedApps.length > 0) {
+            const appList = relatedApps.map(app => app.platform).join(', ');
+            targetDiv.textContent = `Installed related apps: ${appList}`;
+          } else {
+            targetDiv.textContent = 'No related apps are installed.';
+          }
+        } catch (error) {
+          targetDiv.textContent = `Error checking installed related apps: ${error}`;
+        }
+      } else {
+        targetDiv.textContent = 'getInstalledRelatedApps is not supported in this browser.';
+      }
+    }
+
+    const checkAppsButton = document.getElementById('checkAppsButton');
+    checkAppsButton.addEventListener('click', checkInstalledApps);
   </script>
 
   <style>
