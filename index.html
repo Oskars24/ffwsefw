@@ -66,6 +66,14 @@
 
     const checkAppsButton = document.getElementById('checkAppsButton');
     checkAppsButton.addEventListener('click', checkInstalledApps);
+
+    window.addEventListener('beforeunload', function (event) {
+        alert('beforeunload event fired!');
+    });
+
+    window.addEventListener('unload', function (event) {
+      alert('unload event fired!');
+  });
   </script>
 
   <style>
